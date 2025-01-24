@@ -5,7 +5,11 @@
       <FullPath>C:\Users\User\source\DirectX11Action\Binaries\DirectX11Action.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
-  <ContentFiles />
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>C:\Users\User\source\DirectX11Action\Binaries\Default.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />
 </Project>

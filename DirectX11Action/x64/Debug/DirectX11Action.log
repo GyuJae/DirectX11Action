@@ -1,4 +1,5 @@
-﻿  DirectX11Action.cpp
-  Game.cpp
-  Generating Code...
+﻿  Game.cpp
+C:\Users\User\source\DirectX11Action\DirectX11Action\Game.cpp(58,50): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+  (compiling source file '/Game.cpp')
+  
   DirectX11Action.vcxproj -> C:\Users\User\source\DirectX11Action\Binaries\DirectX11Action.exe
