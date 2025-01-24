@@ -5,33 +5,48 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\99. Headers">
+      <UniqueIdentifier>{f9f24f08-c4e2-4449-8140-ea49ba59c669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\01. Main">
+      <UniqueIdentifier>{2ba045c6-33fd-43e4-87bb-b8dd379c7d45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\99. Headers\Andromeda">
+      <UniqueIdentifier>{b96294f6-5c8d-4651-9f5b-bea9e600c458}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="DirectX11Action.h">
+      <Filter>Source Files\01. Main</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="pch.h">
+      <Filter>Source Files\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Source Files\99. Headers\Andromeda</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\99. Headers\Andromeda</Filter>
     </ClInclude>
-    <ClInclude Include="DirectX11Action.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="targetver.h">
+      <Filter>Source Files\99. Headers\Andromeda</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DirectX11Action.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Values.h">
+      <Filter>Source Files\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>Source Files\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Source Files\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source Files\01. Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX11Action.rc">
@@ -45,5 +60,16 @@
     <Image Include="DirectX11Action.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DirectX11Action.cpp">
+      <Filter>Source Files\01. Main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files\99. Headers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\01. Main</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
