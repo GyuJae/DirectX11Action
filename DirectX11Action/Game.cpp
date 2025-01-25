@@ -26,11 +26,21 @@ void Game::Init(HWND hwnd)
 	this->CreateInputLayout();
 	this->CreatePS();
 	this->CreateSRV();
+	this->CreateConstantBuffer();
 }
 
 void Game::Update()
 {
-
+	D3D11_MAPPED_SUBRESOURCE subResource;
+	ZeroMemory(&subResource, sizeof(subResource));
+	{
+		HRESULT hr = this->_deviceContext->Map(this->_constantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+		CHECK(hr);
+		TransformData* p = (TransformData*)subResource.pData;
+		p->offset = Vec3(0.f, 0.f, 0.f);
+		p->dummy = 0.f;
+		this->_deviceContext->Unmap(this->_constantBuffer.Get(), 0);
+	}
 }
 
 void Game::Render()
@@ -50,6 +60,7 @@ void Game::Render()
 
 		// VS
 		this->_deviceContext->VSSetShader(this->_vertexShader.Get(), nullptr, 0);
+		this->_deviceContext->VSSetConstantBuffers(0, 1, this->_constantBuffer.GetAddressOf());
 
 		// RS
 
@@ -285,6 +296,21 @@ void Game::CreateSRV()
 		md,
 		this->_shaderResourceView.GetAddressOf()
 	);
+	CHECK(hr);
+}
+
+void Game::CreateConstantBuffer()
+{
+	D3D11_BUFFER_DESC desc;
+	ZeroMemory(&desc, sizeof(desc));
+	{
+		desc.Usage = D3D11_USAGE_DYNAMIC;
+		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER; // CPU_Write + GPU_Read
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		desc.ByteWidth = sizeof(TransformData);
+	}
+
+	HRESULT hr = this->_device->CreateBuffer(&desc, nullptr, this->_constantBuffer.GetAddressOf());
 	CHECK(hr);
 }
 

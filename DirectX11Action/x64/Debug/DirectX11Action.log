@@ -1,5 +1,9 @@
-﻿  Game.cpp
-C:\Users\User\source\DirectX11Action\DirectX11Action\Game.cpp(62,56): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+﻿  compilation object save succeeded; see C:\Users\User\source\DirectX11Action\Binaries\Default.cso
+  pch.cpp
+  DirectX11Action.cpp
+  Game.cpp
+  Generating Code...
+C:\Users\User\source\DirectX11Action\DirectX11Action\Game.cpp(73,56): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
   (compiling source file '/Game.cpp')
   
 DirectXTex.lib(DirectXTexImage.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in DirectX11Action.obj
@@ -22,9 +26,9 @@ DirectXTex.lib(DirectXTexMipMaps.obj) : error LNK2038: mismatch detected for 'Ru
 DirectXTex.lib(DirectXTexMipMaps.obj) : warning LNK4099: PDB '' was not found with 'DirectXTex.lib(DirectXTexMipMaps.obj)' or at ''; linking object as if no debug info
 DirectXTex.lib(DirectXTexCompress.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in DirectX11Action.obj
 DirectXTex.lib(DirectXTexCompress.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in DirectX11Action.obj
+DirectXTex.lib(DirectXTexCompress.obj) : warning LNK4099: PDB '' was not found with 'DirectXTex.lib(DirectXTexCompress.obj)' or at ''; linking object as if no debug info
 DirectXTex.lib(BC.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in DirectX11Action.obj
 DirectXTex.lib(BC.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in DirectX11Action.obj
-DirectXTex.lib(DirectXTexCompress.obj) : warning LNK4099: PDB '' was not found with 'DirectXTex.lib(DirectXTexCompress.obj)' or at ''; linking object as if no debug info
 DirectXTex.lib(BC.obj) : warning LNK4099: PDB '' was not found with 'DirectXTex.lib(BC.obj)' or at ''; linking object as if no debug info
 DirectXTex.lib(BC4BC5.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in DirectX11Action.obj
 DirectXTex.lib(BC4BC5.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in DirectX11Action.obj

@@ -31,9 +31,9 @@ using namespace Microsoft::WRL;
 #pragma comment(lib, "d3dcompiler.lib")
 
 #ifdef DEBUG
-#pragma comment(lib, "DirectXTex\\DirectXTex_Debug.lib")
+#pragma comment(lib, "DirectXTex\\DirectXTex_debug.lib")
 #else
 #pragma comment(lib, "DirectXTex\\DirectXTex.lib")
-#endif // DEBUG
+#endif 
 
 #define CHECK(p) assert(SUCCEEDED(p))
