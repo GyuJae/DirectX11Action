@@ -25,6 +25,7 @@ void Game::Init(HWND hwnd)
 	this->CreateVS();
 	this->CreateInputLayout();
 	this->CreatePS();
+	this->CreateSRV();
 }
 
 void Game::Update()
@@ -43,6 +44,7 @@ void Game::Render()
 
 		// IA
 		this->_deviceContext->IASetVertexBuffers(0, 1, this->_vertexBuffer.GetAddressOf(), &stride, &offset);
+		this->_deviceContext->IASetIndexBuffer(this->_indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 		this->_deviceContext->IASetInputLayout(this->_inputLayout.Get());
 		this->_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -53,9 +55,11 @@ void Game::Render()
 
 		// PS 
 		this->_deviceContext->PSSetShader(this->_pixelShader.Get(), nullptr, 0);
+		this->_deviceContext->PSSetShaderResources(0, 1, this->_shaderResourceView.GetAddressOf());
 
 		// OM
-		this->_deviceContext->Draw(this->_vertices.size(), 0);
+		//this->_deviceContext->Draw(this->_vertices.size(), 0);
+		this->_deviceContext->DrawIndexed(this->_indices.size(), 0, 0);
 	}
 
 	this->RenderEnd();
@@ -141,16 +145,23 @@ void Game::CreateGeometry()
 
 	// VertexData
 	{
-		_vertices.resize(3);
+		_vertices.resize(4);
 
 		_vertices[0].position = Vec3(-0.5f, -0.5f, 0.f);
-		_vertices[0].color = Color(1.f, 0.f, 0.f, 1.f);
+		//_vertices[0].color = Color(1.f, 0.f, 0.f, 1.f);
+		_vertices[0].uv = Vec2(0.f, 1.f);
 
-		_vertices[1].position = Vec3(0.f, 0.5f, 0.f);
-		_vertices[1].color = Color(0.f, 0.f, 1.f, 1.f);
+		_vertices[1].position = Vec3(-0.5f, 0.5f, 0.f);
+		//_vertices[1].color = Color(1.f, 0.f, 0.f, 1.f);
+		_vertices[1].uv = Vec2(0.f, 0.f);
 
 		_vertices[2].position = Vec3(0.5f, -0.5f, 0.f);
-		_vertices[2].color = Color(0.f, 1.f, 0.f, 1.f);
+		//_vertices[2].color = Color(1.f, 0.f, 0.f, 1.f);
+		_vertices[2].uv = Vec2(1.f, 1.f);
+
+		_vertices[3].position = Vec3(0.5f, 0.5f, 0.f);
+		//_vertices[3].color = Color(1.f, 0.f, 0.f, 1.f);
+		_vertices[3].uv = Vec2(1.f, 0.f);
 	}
 
 	// VertexBuffer
@@ -175,6 +186,34 @@ void Game::CreateGeometry()
 		HRESULT hr = this->_device->CreateBuffer(&desc, &data, this->_vertexBuffer.GetAddressOf());
 		CHECK(hr);
 	}
+
+	// IndexData
+	{
+		_indices = { 0, 1, 2, 2, 1, 3 };
+	}
+
+	// IndexBuffer
+	{
+		D3D11_BUFFER_DESC desc;
+		ZeroMemory(&desc, sizeof(desc));
+		{
+
+			desc.Usage = D3D11_USAGE_IMMUTABLE;
+			desc.BindFlags = D3D10_BIND_INDEX_BUFFER;
+			desc.ByteWidth = (uint32)(sizeof(Vertex) * this->_indices.size());
+			desc.CPUAccessFlags = 0;
+			desc.MiscFlags = 0;
+		}
+
+		D3D11_SUBRESOURCE_DATA data;
+		ZeroMemory(&data, sizeof(data));
+		{
+			data.pSysMem = this->_indices.data(); // &_indices[0]
+		}
+
+		HRESULT hr = this->_device->CreateBuffer(&desc, &data, this->_indexBuffer.GetAddressOf());
+		CHECK(hr);
+	}
 }
 
 void Game::CreateInputLayout()
@@ -184,8 +223,8 @@ void Game::CreateInputLayout()
 		{
 			// offsetof(Vertex, position) == 0
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, offsetof(Vertex, position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			// offsetof(Vertex, color) == 12
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offsetof(Vertex, color), D3D11_INPUT_PER_VERTEX_DATA, 0 }
+			// offsetof(Vertex, uv) == 12
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, offsetof(Vertex, uv), D3D11_INPUT_PER_VERTEX_DATA, 0 }
 		};
 
 		const int32 count = sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
@@ -222,6 +261,29 @@ void Game::CreatePS()
 		this->_psBlob->GetBufferSize(),
 		nullptr,
 		this->_pixelShader.GetAddressOf()
+	);
+	CHECK(hr);
+}
+
+void Game::CreateSRV()
+{
+	DirectX::TexMetadata md;
+	DirectX::ScratchImage img;
+
+	HRESULT hr = ::LoadFromWICFile(
+		L"Skeleton.png",
+		DirectX::WIC_FLAGS_NONE,
+		&md,
+		img
+	);
+	CHECK(hr);
+
+	hr = DirectX::CreateShaderResourceView(
+		this->_device.Get(),
+		img.GetImages(),
+		img.GetImageCount(),
+		md,
+		this->_shaderResourceView.GetAddressOf()
 	);
 	CHECK(hr);
 }
